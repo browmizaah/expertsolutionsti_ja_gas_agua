@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sistema de pedidos de Gás & Água - rápido e fácil">
+    <meta property="og:title" content="Gás & Água - Pedido Online">
+    <meta property="og:description" content="Peça Gás e Água de forma prática e rápida. Confira nossas opções e preços">
+    <meta property="og:image" content="url_do_logo_aqui">
+
+    <link rel="stylesheet" href="src/output.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <title>Já Gás & Água</title>
+
+</head>
+
+<body class="bg-gray-100 text-gray-800">
+
+    <!-- Header -->
+    <header class="w-full h-[420px] bg-home bg-cover bg-center" style="background-image: url('./img/img-logo01.jpg');">
+        <div class="w-full h-full flex flex-col justify-center items-center">
+            <img src="./img/img-logo01.jpg" alt="Logo do Gás & Água"
+                class="w-32 h-32 rounded-full shadow-xl hover:scale-110 duration-200">
+            <h1 class="text-white font-bold text-4xl mt-2 mb-2">Gás & Água</h1>
+            <span class="text-white font-medium">Av. João Exemplo, 123</span>
+            <span class="text-white font-medium">Campinas - SP</span>
+            <div id="horario-cor" class="bg-blue-600 px-4 py-1 rounded-lg mt-2">
+                <span class="text-white font-medium">Horario de funcinamento - 08:00 às 18:00</span>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- Botões principais -->
+    <main class="bg-stone-300 p-4">
+        <div class="flex justify-center gap-4">
+            <button id="btn-gas"
+                class="bg-orange-500 text-white py-2 px-4 mt-3 rounded hover:bg-orange-600 transition duration-200">Gás</button>
+            <button id="btn-agua"
+                class="bg-blue-500 text-white py-2 px-4 mt-3 rounded hover:bg-blue-600 transition duration-200">Água</button>
+        </div>
+        <!-- Produtos -->
+        <div id="produtos" class="mt-4"></div>
+        <!-- Conteúdo a ser preenchido dinamicamente ao clicar nos botões -->
+    </main>
+
+    <!-- Modal -->
+    <div id="modal-carrinho" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+        <div class="bg-white p-6 rounded w-11/12 md:w-1/2">
+            <h2 class="text-lg font-bold">Meu Carrinho</h2>
+            <div id="conteudo-carrinho" class="mt-4">
+                <!-- Itens do carrinho aqui -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer com botão fixo -->
+    <footer class="bg-blue-500 fixed bottom-0 w-full py-3 z-40 flex items-center justify-center">
+        <button id="btn-carrinho"
+            class="text-white font-bold flex items-center gap-2 hover:text-gray-200 transition duration-200">
+            <span id="quant-items-card">( 0 )</span>
+            Ver meu carrinho
+            <i class="fa fa-cart-plus text-lg text-white"></i>
+        </button>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</body>
+
+</html>
