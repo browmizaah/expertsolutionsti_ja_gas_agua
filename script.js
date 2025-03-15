@@ -89,12 +89,12 @@ atualizarHorario();
 // Produtos disponíveis (Gás e Água)
 const produtos = {
     gas: [
-        { nome: "Botijão 13kg Troca", preco: 100.00 },
-        { nome: "Botijão 23kg Novo", preco: 150.00 }
+        { nome: "Botijão 13kg - Troca", preco: 110.00 },
+        { nome: "Botijão 13kg - Novo", preco: 150.00 }
     ],
     agua: [
-        { nome: "Galão 20L Troca", preco: 10.00 },
-        { nome: "Galão 20L Novo", preco: 15.00 }
+        { nome: "Galão 20L - Troca", preco: 12.00 },
+        { nome: "Galão 20L - Novo", preco: 22.00 }
     ]
 };
 
@@ -231,7 +231,16 @@ function abrirModalCarrinho() {
         conteudoCarrinho.appendChild(itemDiv);
     });
 
-    // Adiciona o campo de endereço (fora do loop para evitar duplicação)
+    // Campo do preço total atualizado no modal
+    const totalDiv = document.createElement('div');
+    totalDiv.className = "mt-4 flex justify-between items-center border-t pt-2";
+    totalDiv.innerHTML = `
+        <span class="font-bold text-lg">Total:</span>
+        <span class="font-bold text-lg text-green-600">R$ ${totalCarrinho.toFixed(2)}</span>
+    `;
+    conteudoCarrinho.appendChild(totalDiv);
+
+    // Campo de endereço (fora do loop)
     const enderecoDiv = document.createElement('div');
     enderecoDiv.className = "mt-4";
     enderecoDiv.innerHTML = `
@@ -241,7 +250,7 @@ function abrirModalCarrinho() {
     `;
     conteudoCarrinho.appendChild(enderecoDiv);
 
-    // Adiciona os botões no final do modal
+    // Botões no final do modal
     const botoesDiv = document.createElement('div');
     botoesDiv.className = "mt-4 flex justify-between items-center";
     botoesDiv.innerHTML = `
@@ -254,7 +263,6 @@ function abrirModalCarrinho() {
     // Torna o modal visível
     modalCarrinho.classList.remove('hidden');
 }
-
 
 // Função para alterar a quantidade de itens
 function alterarQuantidade(index, delta) {
