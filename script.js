@@ -44,7 +44,7 @@ function atualizarHorario() {
     let mensagem = '';
     let corDeFundo = '';
 
-    if (diaSemana >= 1 && diaSemana <= 5) {
+    if (diaSemana >= 1 && diaSemana <= 6) {
         // Segunda a Sexta (08:00 - 18:00)
         if (horaAtual >= 8 && horaAtual < 18) {
             mensagem = 'Aberto: 08:00 às 18:00';
@@ -54,18 +54,6 @@ function atualizarHorario() {
             corDeFundo = 'bg-red-600';
         } else {
             mensagem = 'Fechado. Reabrimos amanhã às 08:00';
-            corDeFundo = 'bg-red-600';
-        }
-    } else if (diaSemana === 6) {
-        // Sábado (08:00 - 14:00)
-        if (horaAtual >= 8 && horaAtual < 14) {
-            mensagem = 'Aberto: 08:00 às 14:00';
-            corDeFundo = 'bg-green-600';
-        } else if (horaAtual < 8) {
-            mensagem = 'Fechado. Reabrimos às 08:00';
-            corDeFundo = 'bg-red-600';
-        } else {
-            mensagem = 'Fechado. Reabrimos segunda-feira às 08:00';
             corDeFundo = 'bg-red-600';
         }
     } else {
@@ -89,12 +77,12 @@ atualizarHorario();
 // Produtos disponíveis (Gás e Água)
 const produtos = {
     gas: [
-        { nome: "Botijão 13kg - Troca", preco: 110.00 },
-        { nome: "Botijão 13kg - Novo", preco: 150.00 }
+        { nome: "BOTIJÃO 13Kg [Troca]", preco: 115.00 },
+        { nome: "BOTIJÃO 13Kg [Novo]", preco: 330.00 }
     ],
     agua: [
-        { nome: "Galão 20L - Troca", preco: 12.00 },
-        { nome: "Galão 20L - Novo", preco: 22.00 }
+        { nome: "GALÃO 20L [Troca]", preco: 12.00 },
+        { nome: "GALÃO 20L [Novo]", preco: 38.00 }
     ]
 };
 
@@ -327,7 +315,7 @@ function enviarPedido() {
     mensagem += `*Endereço:* ${inputEndereco.value.trim()}%0A`;
 
     // Envia o pedido via WhatsApp
-    const numeroWhatsApp = "19982933955";
+    const numeroWhatsApp = "19987277180";
     const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${mensagem}`;
     window.open(urlWhatsApp, '_blank');
 
