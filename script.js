@@ -21,6 +21,7 @@ const enderecoInput = document.getElementById('endereco');
 const avisoEndereco = document.getElementById('aviso-endereco');
 const metodoPagamento = document.getElementById('metodo-pagamento');
 const quantidadeItens = document.getElementById('items-carrinho');
+const btnVejaMais = document.getElementById('btn-vejaMais');
 
 // Array para armazenar os itens do carrinho
 let carrinho = [];
@@ -77,12 +78,16 @@ atualizarHorario();
 // Produtos disponíveis (Gás e Água)
 const produtos = {
     gas: [
-        { nome: "BOTIJÃO 13Kg [Troca]", preco: 115.00 },
-        { nome: "BOTIJÃO 13Kg [Novo]", preco: 330.00 }
+        { nome: "Botijão 13Kg [Troca]", preco: 115.00 },
+        { nome: "Botijão 13Kg [Novo]", preco: 330.00 }
     ],
     agua: [
-        { nome: "GALÃO 20L [Troca]", preco: 12.00 },
-        { nome: "GALÃO 20L [Novo]", preco: 38.00 }
+        { nome: "Galão 20L [Troca]", preco: 12.00 },
+        { nome: "Galão 20L [Novo]", preco: 38.00 }
+    ],
+    carvao: [
+        { nome: "Carvão Saco 2kg", preco: 17.00 },
+        { nome: "Carvão Saco 4kg", preco: 28.00 }
     ]
 };
 
@@ -94,7 +99,7 @@ function exibirProdutos(tipo) {
     // Adiciona os produtos do tipo selecionado
     produtos[tipo].forEach(produto => {
         const produtoDiv = document.createElement('div');
-        produtoDiv.className = "bg-white p-3 shadow-md rounded mb-4 w-4/5 md:w-2/5 mx-auto"; // Ajuste de largura para compactação
+        produtoDiv.className = "bg-white p-3 shadow-md rounded mb-4 w-4/5 md:w-2/5 mx-auto";
 
         // Nome e preço do produto
         produtoDiv.innerHTML = `
@@ -104,7 +109,7 @@ function exibirProdutos(tipo) {
 
         // Botão "Adicionar ao Carrinho"
         const botaoAdicionar = document.createElement('button');
-        botaoAdicionar.className = "bg-green-500 text-white py-2 px-3 rounded hover:bg-green-600 transition duration-200 w-full text-sm"; // Botão menor e mais compacto
+        botaoAdicionar.className = "bg-green-500 text-white py-2 px-3 rounded hover:bg-green-600 transition duration-200 w-full text-sm";
         botaoAdicionar.textContent = "Adicionar ao Carrinho";
         botaoAdicionar.onclick = () => adicionarAoCarrinho(produto);
 
@@ -116,20 +121,8 @@ function exibirProdutos(tipo) {
     });
 }
 
-// Função exemplo para adicionar itens ao carrinho
-function adicionarAoCarrinho(produto) {
-    alert(`Você adicionou "${produto.nome}" ao carrinho!`);
-    // Aqui você pode implementar lógica adicional, como atualizar o carrinho no modal
-}
-
-// Eventos de clique para os botões
-btnGas.addEventListener('click', () => exibirProdutos('gas'));
-btnAgua.addEventListener('click', () => exibirProdutos('agua'));
-
-// Variável para controlar qual tipo está atualmente visível
-let tipoAtualVisivel = null;
-
 // Função para alternar visibilidade de acordo com o tipo
+let tipoAtualVisivel = null;
 function toggleProdutos(tipo) {
     if (tipoAtualVisivel === tipo) {
         // Se clicar no botão do tipo já visível, esconde
@@ -142,12 +135,19 @@ function toggleProdutos(tipo) {
     }
 }
 
-// Eventos de clique para os botões
+// Função exemplo para adicionar itens ao carrinho
+function adicionarAoCarrinho(produto) {
+    alert(`Você adicionou "${produto.nome}" ao carrinho!`);
+    // Lógica para atualizar carrinho
+}
+
+// Seleção de botões
 btnGas.addEventListener('click', () => toggleProdutos('gas'));
 btnAgua.addEventListener('click', () => toggleProdutos('agua'));
+btnVejaMais.addEventListener('click', () => toggleProdutos('carvao'));
 
 // ======================
-// 📌 Parte 4: 
+// 📌 Parte 4: Adicionar items ao carrinho 
 // ======================
 
 // Função para adicionar itens ao carrinho
@@ -292,7 +292,7 @@ function fecharModalCarrinho() {
 btnCarrinho.addEventListener('click', abrirModalCarrinho);
 
 // ======================
-// 📌 Parte 4: Enviar pedido
+// 📌 Parte 5: Enviar pedido
 // ======================
 
 function enviarPedido() {

@@ -23,27 +23,28 @@
 <body class="bg-gray-100 text-gray-800">
 
     <!-- Header -->
-    <header class="w-full h-[420px] bg-home bg-cover bg-center" style="background-image: url('./img/img-logo01.jpg');">
+    <header class="w-full h-[350px] bg-home bg-cover bg-center" style="background-image: url('./img/img-logo01.jpg');">
         <div class="w-full h-full flex flex-col justify-center items-center">
             <img src="./img/img-logo01.jpg" alt="Logo do Gás & Água"
-                class="w-32 h-32 rounded-full shadow-xl hover:scale-110 duration-200">
-            <h1 class="text-white font-bold text-4xl mt-2 mb-2">Já Gás & Água</h1>
-            <span class="text-white font-medium">Rua. José Benício Sampaio da Silva</span>
-            <span class="text-white font-medium">Campinas - SP</span>
-            <div id="horario-cor" class="bg-blue-600 px-4 py-1 rounded-lg mt-2">
-                <span class="text-white font-medium">Horario de funcinamento - 08:00 às 18:00</span>
+                class="w-24 h-24 rounded-full shadow-xl hover:scale-110 duration-200">
+            <h1 class="text-white font-bold text-2xl mt-2 mb-1">Já Gás & Água</h1>
+            <span class="text-white font-medium text-sm">Rua. José Benício Sampaio da Silva</span>
+            <span class="text-white font-medium text-sm">Campinas - SP</span>
+            <div id="horario-cor" class="bg-blue-600 px-3 py-1 rounded-lg mt-2">
+                <span class="text-white font-medium text-sm">Horário de funcionamento - 08:00 às 18:00</span>
             </div>
         </div>
     </header>
 
-
     <!-- Botões principais -->
-    <main class="bg-stone-300">
+    <main class="bg-stone-300 h-[50px]">
         <div class="flex justify-center gap-4">
             <button id="btn-gas"
-                class="bg-orange-500 text-white py-2 px-4 mt-7 rounded hover:bg-orange-600 transition duration-200">Gás</button>
+                class="bg-orange-500 text-white py-2 px-4 mt-1 rounded hover:bg-orange-600 transition duration-200">Gás</button>
             <button id="btn-agua"
-                class="bg-blue-500 text-white py-2 px-4 mt-7 rounded hover:bg-blue-600 transition duration-200">Água</button>
+                class="bg-blue-500 text-white py-2 px-4 mt-1 rounded hover:bg-blue-600 transition duration-200">Água</button>
+            <button id="btn-vejaMais"
+                class="bg-slate-500 text-white py-2 px-4 mt-1 rounded hover:bg-slate-600 transition duration-200">Veja Mais</button>
         </div>
         <!-- Produtos -->
         <div id="produtos" class="mt-4 max-h-[50vh] overflow-y-auto p-2"></div>
