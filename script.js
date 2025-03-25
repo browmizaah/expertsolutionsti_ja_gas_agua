@@ -184,20 +184,33 @@ function abrirModalCarrinho() {
     // Limpa o conteúdo anterior do modal
     conteudoCarrinho.innerHTML = '';
 
-    // Adiciona cada item do carrinho ao modal
     carrinho.forEach((item, index) => {
         const itemDiv = document.createElement('div');
         itemDiv.className = "flex justify-between items-center border-b pb-2 mb-2";
 
-        // Nome, quantidade e preço do item
+        let extraCampo = '';
+
+        // Se for o "Galão 20L [Troca]", adiciona um select de ano de fabricação
+        if (item.nome === "Galão 20L [Troca]") {
+            extraCampo = `
+                <label for="fabricacao-${index}" class="block font-bold mt-2">Ano de Fabricação:</label>
+                <select id="fabricacao-${index}" class="w-full border-2 border-black rounded p-1 my-1">
+                    <option value="" disabled selected>Selecione o ano</option>
+                    ${Array.from({ length: 2025 - 2018 + 1 }, (_, i) => `<option value="${2018 + i}">${2018 + i}</option>`).join('')}
+                </select>
+            `;
+        }
+
+        // Nome, quantidade e preço do item + campo extra (se necessário)
         itemDiv.innerHTML = `
             <div class="w-3/4">
                 <span class="text-gray-800 font-medium">${item.nome}</span>
                 <p class="text-gray-600">R$ ${item.total.toFixed(2)} (x${item.quantidade})</p>
+                ${extraCampo}
             </div>
         `;
 
-        // Botões de "+" e "-" para ajustar a quantidade
+        // Botões de ajuste de quantidade
         const botaoQuantidade = document.createElement('div');
         botaoQuantidade.className = "flex items-center gap-2";
 
@@ -214,12 +227,11 @@ function abrirModalCarrinho() {
         botaoQuantidade.appendChild(botaoMenos);
         botaoQuantidade.appendChild(botaoMais);
 
-        // Adiciona os botões ao div do item
         itemDiv.appendChild(botaoQuantidade);
         conteudoCarrinho.appendChild(itemDiv);
     });
 
-    // Campo do preço total atualizado no modal
+    // Total do pedido
     const totalDiv = document.createElement('div');
     totalDiv.className = "mt-4 flex justify-between items-center border-t pt-2";
     totalDiv.innerHTML = `
@@ -228,7 +240,21 @@ function abrirModalCarrinho() {
     `;
     conteudoCarrinho.appendChild(totalDiv);
 
-    // Campo de endereço (fora do loop)
+    // Método de pagamento
+    const metodoPagamentoDiv = document.createElement('div');
+    metodoPagamentoDiv.className = "mt-4";
+    metodoPagamentoDiv.innerHTML = `
+        <p class="font-bold mt-2">Método de Pagamento:</p>
+        <select id="metodo-pagamento" class="w-full border-2 border-black rounded p-1 my-1">
+            <option value="" disabled selected>Selecione uma opção</option>
+            <option value="PIX">PIX</option>
+            <option value="Dinheiro">Dinheiro</option>
+            <option value="Cartão">Cartão</option>
+        </select>
+    `;
+    conteudoCarrinho.appendChild(metodoPagamentoDiv);
+
+    // Campo de endereço
     const enderecoDiv = document.createElement('div');
     enderecoDiv.className = "mt-4";
     enderecoDiv.innerHTML = `
@@ -238,14 +264,13 @@ function abrirModalCarrinho() {
     `;
     conteudoCarrinho.appendChild(enderecoDiv);
 
-    // Botões no final do modal
+    // Botões do modal
     const botoesDiv = document.createElement('div');
     botoesDiv.className = "mt-4 flex justify-between items-center";
     botoesDiv.innerHTML = `
         <button class="bg-gray-300 text-black py-2 px-4 rounded" onclick="fecharModalCarrinho()">Fechar</button>
         <button class="bg-green-500 text-white py-2 px-4 rounded" onclick="enviarPedido()">Enviar Pedido</button>
     `;
-
     conteudoCarrinho.appendChild(botoesDiv);
 
     // Torna o modal visível
@@ -298,21 +323,40 @@ btnCarrinho.addEventListener('click', abrirModalCarrinho);
 function enviarPedido() {
     const inputEndereco = document.getElementById('input-endereco');
     const mensagemErro = document.getElementById('mensagem-erro');
+    const metodoPagamentoSelecionado = document.getElementById('metodo-pagamento').value;
 
     if (!inputEndereco.value.trim()) {
-        // Exibe a mensagem de erro se o campo de endereço estiver vazio
         mensagemErro.classList.remove('hidden');
         inputEndereco.classList.add('border-red-500');
         return;
     }
 
+    if (!metodoPagamentoSelecionado) {
+        alert("Por favor, selecione um método de pagamento.");
+        return;
+    }
+
     // Formata os itens do carrinho em texto para o WhatsApp
     let mensagem = "*Meu Pedido:*%0A";
-    carrinho.forEach(item => {
-        mensagem += `- ${item.nome} (x${item.quantidade}) - R$ ${item.total.toFixed(2)}%0A`;
+    carrinho.forEach((item, index) => {
+        let extraInfo = "";
+
+        // Se for "Galão 20L [Troca]", adiciona o ano de fabricação
+        if (item.nome === "Galão 20L [Troca]") {
+            const anoFabricacao = document.getElementById(`fabricacao-${index}`).value;
+            if (!anoFabricacao) {
+                alert("Por favor, selecione o ano de fabricação para o Galão 20L [Troca].");
+                return;
+            }
+            extraInfo = ` - Ano de Fabricação: ${anoFabricacao}`;
+        }
+
+        mensagem += `- ${item.nome} (x${item.quantidade}) - R$ ${item.total.toFixed(2)}${extraInfo}%0A`;
     });
+
     mensagem += `%0A*Total:* R$ ${totalCarrinho.toFixed(2)}%0A`;
     mensagem += `*Endereço:* ${inputEndereco.value.trim()}%0A`;
+    mensagem += `*Método de Pagamento:* ${metodoPagamentoSelecionado}%0A`;
 
     // Envia o pedido via WhatsApp
     const numeroWhatsApp = "19987277180";
